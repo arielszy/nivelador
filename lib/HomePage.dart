@@ -1,54 +1,40 @@
 import 'package:flutter/material.dart';
 
-import 'Libreria.dart';
-
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int indexPage = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[400],
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'MoviApp',
-          style: TextStyle(color: Colors.grey[300]),
+Widget homePage() {
+  return DefaultTabController(
+    length: 2,
+    child: Column(
+      children: <Widget>[
+        Container(
+          constraints: BoxConstraints.expand(height: 50),
+          child: TabBar(
+            tabs: [
+              Tab(
+                child: Text(
+                  'Mas populares',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Mas vistas',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.grey[600],
-      ),
-      body: Padding(padding: const EdgeInsets.all(25), child: _listarPagina()),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.black,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Buscar"),
-        ],
-        onTap: (index) => _cambiarPagina(index),
-        currentIndex: indexPage,
-      ),
-    );
-  }
-
-  void _cambiarPagina(int index) {
-    setState(() {
-      indexPage = index;
-    });
-  }
-
-  Widget _listarPagina() {
-    if (indexPage == 0) {
-      return Center(
-        child: tabBarDemo(),
-      );
-    } else {
-      return Center(
-        child: Text('2'),
-      );
-    }
-  }
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
+            child: TabBarView(children: [
+              Text("Home Body"),
+              Text("Articles Body"),
+            ]),
+          ),
+        )
+      ],
+    ),
+  );
 }
