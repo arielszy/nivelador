@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+import 'Libreria.dart';
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int indexPage = 0;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.grey[400],
       appBar: AppBar(
@@ -14,23 +21,34 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.grey[600],
       ),
-      body: tabBar(),
+      body: Padding(padding: const EdgeInsets.all(25), child: _listarPagina()),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.black,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Buscar"),
+        ],
+        onTap: (index) => _cambiarPagina(index),
+        currentIndex: indexPage,
+      ),
     );
   }
-}
 
-ir(context) {
-  // return Navigator.push(context, MaterialPageRoute(builder: (context)=>Scaffold()));
-}
+  void _cambiarPagina(int index) {
+    setState(() {
+      indexPage = index;
+    });
+  }
 
-tabBar() {
-  return DefaultTabController(
-    length: 2,
-    child: TabBar(
-      tabs: [
-        Tab(text: 'hola',),
-        Tab(text: 'chau',),
-      ],
-    ),
-  );
+  Widget _listarPagina() {
+    if (indexPage == 0) {
+      return Center(
+        child: tabBarDemo(),
+      );
+    } else {
+      return Center(
+        child: Text('2'),
+      );
+    }
+  }
 }
