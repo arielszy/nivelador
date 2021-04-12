@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'HomePage.dart';
-import 'Busqueda.dart';
+import 'pantallas/HomePage.dart';
+import 'pantallas/Busqueda.dart';
 
 void main() {
   runApp(NivelApp());
@@ -16,18 +16,17 @@ class NivelApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Back(),
+      home: Home(),
     );
   }
 }
 
-class Back extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _BackState createState() => _BackState();
+  _HomeState createState() => _HomeState();
 }
 
-class _BackState extends State<Back> {
-
+class _HomeState extends State<Home> {
   int indexPage = 0;
   @override
   Widget build(BuildContext context) {

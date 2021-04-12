@@ -1,3 +1,4 @@
+//molde para el listado de peliculas traido de la api
 
 class Pelicula {
   Pelicula({
