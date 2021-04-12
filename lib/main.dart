@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'api.dart';
 import 'pantallas/HomePage.dart';
 import 'pantallas/Busqueda.dart';
 
-void main() {
+void main() async {
+  final a = await obtenerGeneros();
   runApp(NivelApp());
 }
 

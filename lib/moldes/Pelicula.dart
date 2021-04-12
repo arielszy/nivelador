@@ -3,6 +3,7 @@
 class Pelicula {
   Pelicula({
     this.titulo,
+    this.tituloOriginal,
     this.urlPortada,
     this.urlAvatar,
     this.generos,
@@ -13,6 +14,7 @@ class Pelicula {
   });
 
   String titulo;
+  String tituloOriginal;
   String urlPortada;
   String urlAvatar;
   List generos;
@@ -30,6 +32,7 @@ class Pelicula {
     final fechaDeLanzamiento = datos['release_date'].toString();
     final puntaje = datos['vote_average'].toString();
     final id = datos['id'].toString();
+    final tituloOriginal = datos['original_title'];
 
     return Pelicula(
       titulo: titulo,
@@ -40,6 +43,7 @@ class Pelicula {
       fechaDeLanzamiento: fechaDeLanzamiento,
       puntaje: puntaje,
       id: id,
+      tituloOriginal: tituloOriginal,
     );
   }
 }
