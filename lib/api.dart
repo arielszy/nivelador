@@ -42,4 +42,14 @@ https://www.themoviedb.org/talk/51ef18b5760ee3182d125573
 https://www.themoviedb.org/documentation/api/discover
 
 creditos: https://api.themoviedb.org/3/movie/550/credits?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es
+
+
+
+a() async {
+  final listaGeneros = await obtenerGeneros();
+  final masVistas = await obtenerPeliculas('top_rated');
+  final masPopulares = await obtenerPeliculas('popular');
+}
+
+
 */

@@ -3,8 +3,7 @@ import 'api.dart';
 import 'pantallas/HomePage.dart';
 import 'pantallas/Busqueda.dart';
 
-void main() async {
-  final a = await obtenerGeneros();
+void main() {
   runApp(NivelApp());
 }
 
