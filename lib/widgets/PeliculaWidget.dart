@@ -15,7 +15,7 @@ class PeliculaWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PeliculaDetalle(pelicula)),
+        MaterialPageRoute(builder: (context) => peliculaDetalle(pelicula)),
       ),
       child: Card(
         elevation: 5, // le da una sombra al card

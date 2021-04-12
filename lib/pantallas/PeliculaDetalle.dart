@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:nivelador/moldes/Pelicula.dart';
 
-PeliculaDetalle(Pelicula pelicula) {
+peliculaDetalle(Pelicula pelicula) {
   return Scaffold(
     appBar: AppBar(
       title: Text(pelicula.id),
