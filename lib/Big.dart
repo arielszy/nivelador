@@ -9,10 +9,21 @@ Map<String, String> listMapToMap(List<Generos> listaGeneros){
 
 Map<String, String> mapaGeneros={};
 for (var i =0; i>=; i++){
-mapaGeneros.addAll(ListaGeneros[i]['id']:ListaGeneros[i]['name']);
-
-
+mapaGeneros.addAll({ListaGeneros[i]['id']:ListaGeneros[i]['name']});
 }
+
+
+
+Mapa = Map.fromIterable(listaGeneros,
+            key: (e) => e['id'], value: (e) => e['name']);
+       
+      }
+
+
+
+
+
+
 Print(mapaGeneros);
 Return mapaGeneros;
 
