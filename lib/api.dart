@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:nivelador/moldes/Pelicula.dart';
-import 'moldes/Generos.dart';
 
 Future<List<Pelicula>> obtenerPeliculas(String tipo) async {
   try {
@@ -17,20 +16,6 @@ Future<List<Pelicula>> obtenerPeliculas(String tipo) async {
   }
 }
 
-Future<List<Generos>> obtenerGeneros() async {
-  try {
-    Response respuesta = await Dio().get(
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es");
-
-    final datosObtenidos = respuesta.data['genres'];
-    var listaGeneros =
-        datosObtenidos.map((datosJson) => Generos.armar(datosJson)).toList();
-
-    return List<Generos>.from(listaGeneros); //devuelve listado de generos
-  } catch (e) {
-    return e;
-  }
-}
 
 
 /*documentacion:
@@ -50,6 +35,8 @@ a() async {
   final masVistas = await obtenerPeliculas('top_rated');
   final masPopulares = await obtenerPeliculas('popular');
 }
+
+hacer lista de extensiones
 
 
 */

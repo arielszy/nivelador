@@ -7,9 +7,6 @@ class PeliculaWidget extends StatelessWidget {
 
   final Pelicula pelicula;
 
-  final String url =
-      'https://www.themoviedb.org/t/p/w600_and_h900_bestv2'; // url base donde estan las imagenes
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -48,7 +45,7 @@ class PeliculaWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
-                    url + pelicula.urlAvatar,
+                    pelicula.urlAvatar,
                     height: 194,
                   ),
                 ),

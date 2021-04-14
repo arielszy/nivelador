@@ -17,7 +17,7 @@ class Pelicula {
   String tituloOriginal;
   String urlPortada;
   String urlAvatar;
-  List generos;
+  List<String> generos;
   String descripcion;
   String fechaDeLanzamiento;
   String puntaje;
@@ -25,8 +25,11 @@ class Pelicula {
 
   factory Pelicula.armar(Map datos) {
     final titulo = datos['title'];
-    final urlPortada = datos['poster_path'];
-    final urlAvatar = datos['backdrop_path'];
+    final urlPortada = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
+        datos[
+            'poster_path']; // url base donde estan las imagenes + el nombre del archivo
+    final urlAvatar = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
+        datos['backdrop_path'];
     final generos = datos['genre_ids'];
     final descripcion = datos['overview'];
     final fechaDeLanzamiento = datos['release_date'].toString();

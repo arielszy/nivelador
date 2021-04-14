@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'api.dart';
+import 'package:nivelador/providers/listado-provider.dart';
 import 'pantallas/HomePage.dart';
 import 'pantallas/Busqueda.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(NivelApp());
@@ -10,15 +11,19 @@ void main() {
 class NivelApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'MoviApp',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Home(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => ListadoProvider.init()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'MoviApp',
+          theme: ThemeData(
+            primarySwatch: Colors.grey,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: Home(),
+        ));
   }
 }
 
