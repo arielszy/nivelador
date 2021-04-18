@@ -50,13 +50,16 @@ Widget homePage() {
 render(String tipo) {
   //genera y muestra el listado de peliculas
   return FutureBuilder(
-      future: obtenerPeliculas(tipo),
-      builder: (context, snapshot) => snapshot.hasData
-          ? ListView.builder(
-              itemBuilder: (context, index) => PeliculaWidget(
-                pelicula: snapshot.data[index],
-              ),
-              itemCount: snapshot.data.length,
-            )
-          : Center(child: CircularProgressIndicator()));
+    future: obtenerPeliculas(tipo),
+    builder: (context, snapshot) => snapshot.hasError == false
+        ? snapshot.hasData
+            ? ListView.builder(
+                itemBuilder: (context, index) => PeliculaWidget(
+                  pelicula: snapshot.data[index],
+                ),
+                itemCount: snapshot.data.length,
+              )
+            : Center(child: CircularProgressIndicator())
+        : Text('error'),
+  );
 }

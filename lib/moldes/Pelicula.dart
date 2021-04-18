@@ -11,17 +11,19 @@ class Pelicula {
     this.fechaDeLanzamiento,
     this.puntaje,
     this.id,
+    this.director,
   });
 
   String titulo;
   String tituloOriginal;
   String urlPortada;
   String urlAvatar;
-  List<String> generos;
+  List generos;
   String descripcion;
   String fechaDeLanzamiento;
   String puntaje;
   String id;
+  String director;
 
   factory Pelicula.armar(Map datos) {
     final titulo = datos['title'];
@@ -36,6 +38,7 @@ class Pelicula {
     final puntaje = datos['vote_average'].toString();
     final id = datos['id'].toString();
     final tituloOriginal = datos['original_title'];
+    final director = '';
 
     return Pelicula(
       titulo: titulo,
@@ -47,6 +50,7 @@ class Pelicula {
       puntaje: puntaje,
       id: id,
       tituloOriginal: tituloOriginal,
+      director: director,
     );
   }
 }
