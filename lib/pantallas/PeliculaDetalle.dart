@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:nivelador/moldes/Pelicula.dart';
-//import 'package:nivelador/providers/listado-provider.dart';
-//import 'package:provider/provider.dart';
+import 'package:nivelador/providers/listado-provider.dart';
+import 'package:provider/provider.dart';
+import 'package:nivelador/main.dart';
 
 Widget peliculaDetalle(Pelicula pelicula) {
   return Scaffold(

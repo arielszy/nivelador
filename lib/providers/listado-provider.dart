@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class ListadoProvider with ChangeNotifier {
+class ListadoProvider extends ChangeNotifier {
   var _listaGeneros = {};
 
   get listado => _listaGeneros;
 
-  generarListdo(Map listado) {
+  generarListado(Map listado) {
     _listaGeneros = listado;
     notifyListeners();
   }
@@ -20,7 +20,7 @@ class ListadoProvider with ChangeNotifier {
           key: (e) => e['id'],
           value: (e) => e[
               'name']); //crea un mapa a partir de una lista de mapas donde la key es el id y el value es el name
-      generarListdo(mapa);
+      generarListado(mapa);
     } catch (e) {
       return 'error';
     }
