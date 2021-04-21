@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nivelador/loader.dart';
+import 'package:nivelador/moldes/Pelicula.dart';
+import 'package:provider/provider.dart';
 import '../api.dart';
 import '../widgets/PeliculaWidget.dart';
+import 'package:nivelador/main.dart';
 
 Widget homePage() {
+  Loader load;
   return DefaultTabController(
     //controla el estado de las pestañas
     length: 2,
@@ -62,4 +67,22 @@ render(String tipo) {
             : Center(child: CircularProgressIndicator())
         : Text('error'),
   );
+}
+
+Widget render2(String tipo) {
+  Loader load;
+
+  tipo == 'popular'
+      ? ListView.builder(
+          itemBuilder: (context, index) => PeliculaWidget(
+            pelicula: load.lista_popular[index],
+          ),
+          itemCount: load.lista_popular.length,
+        )
+      : ListView.builder(
+          itemBuilder: (context, index) => PeliculaWidget(
+            pelicula: load.lista_top_rated[index],
+          ),
+          itemCount: load.lista_top_rated.length,
+        );
 }

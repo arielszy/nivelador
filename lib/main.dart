@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nivelador/loader.dart';
 import 'package:nivelador/providers/listado-provider.dart';
 import 'pantallas/HomePage.dart';
 import 'pantallas/Busqueda.dart';
@@ -8,12 +9,17 @@ void main() {
   runApp(NivelApp());
 }
 
-class NivelApp extends StatelessWidget {
+class NivelApp extends StatefulWidget {
+  @override
+  _NivelAppState createState() => _NivelAppState();
+}
+
+class _NivelAppState extends State<NivelApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => ListadoProvider.init()),
+          ChangeNotifierProvider(create: (context) => Loader()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
