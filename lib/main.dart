@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nivelador/loader.dart';
+import 'package:nivelador/moldes/Pelicula.dart';
 import 'package:nivelador/providers/listado-provider.dart';
 import 'pantallas/HomePage.dart';
 import 'pantallas/Busqueda.dart';
@@ -15,11 +16,15 @@ class NivelApp extends StatefulWidget {
 }
 
 class _NivelAppState extends State<NivelApp> {
+  Widget next = Loading();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => Loader()),
+          ChangeNotifierProvider(
+            create: (context) => Loader(),
+            key: Key('1'),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -28,8 +33,37 @@ class _NivelAppState extends State<NivelApp> {
             primarySwatch: Colors.grey,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: Home(),
+          home: next,
         ));
+  }
+
+  void openNext() async {
+    Loader datos = Loader();
+    await datos.loader();
+    setState(() {
+      next = Home();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    openNext();
+  }
+}
+
+class Loading extends StatelessWidget {
+  const Loading({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Container(
+          child: Text('Cargando app...'),
+        ),
+      ),
+    );
   }
 }
 
@@ -55,8 +89,8 @@ class _HomeState extends State<Home> {
       body: Padding(
           padding: const EdgeInsets.all(10),
           child: indexPage == 0
-              ? homePage()
-              : busqueda()), //si indexPage es 0 muestra la home sino muestra la busqueda (? es if : es else)
+              ? HomePage()
+              : Busqueda()), //si indexPage es 0 muestra la home sino muestra la busqueda (? es if : es else)
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,

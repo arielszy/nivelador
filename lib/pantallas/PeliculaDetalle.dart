@@ -1,10 +1,8 @@
 //pagina que muestra el detalle de cada pelicula
-
 import 'package:flutter/material.dart';
 import 'package:nivelador/moldes/Pelicula.dart';
 import 'package:nivelador/providers/listado-provider.dart';
 import 'package:provider/provider.dart';
-import 'package:nivelador/main.dart';
 
 Widget peliculaDetalle(Pelicula pelicula) {
   return Scaffold(
@@ -38,11 +36,9 @@ Widget peliculaDetalle(Pelicula pelicula) {
           ],
         ),
       ),
-      Expanded(
-        child: Text(
-          'argumento: ' + pelicula.descripcion,
-          overflow: TextOverflow.visible,
-        ),
+      Text(
+        'argumento: ' + pelicula.descripcion,
+        overflow: TextOverflow.visible,
       ),
     ]),
   );
