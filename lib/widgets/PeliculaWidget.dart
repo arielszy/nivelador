@@ -46,7 +46,7 @@ class PeliculaWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
                     pelicula.urlAvatar,
-                    height: 194,
+                    height: 200,
                   ),
                 ),
                 SizedBox(
@@ -69,6 +69,8 @@ class PeliculaWidget extends StatelessWidget {
                       ),
                       Text(
                         pelicula.descripcion,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
