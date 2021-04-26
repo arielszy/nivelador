@@ -17,7 +17,7 @@ class PeliculaWidget extends StatelessWidget {
       ),
       onPressed: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => peliculaDetalle(pelicula)),
+        MaterialPageRoute(builder: (context) => PeliculaDetalle(pelicula:pelicula)),
       ),
       child: Card(
         elevation: 5, // le da una sombra al card

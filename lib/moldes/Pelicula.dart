@@ -1,7 +1,4 @@
 //molde para el listado de peliculas traido de la api
-
-import 'package:dio/dio.dart';
-
 class Pelicula {
   Pelicula({
     this.titulo,
@@ -54,21 +51,5 @@ class Pelicula {
       tituloOriginal: tituloOriginal,
       director: director,
     );
-  }
-
-  Future<List<Pelicula>> obtenerPeliculas(String tipo) async {
-    try {
-      Response respuesta = await Dio().get(
-          "https://api.themoviedb.org/3/movie/$tipo?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es");
-
-      final datosObtenidos = respuesta.data['results'];
-      var listaPeliculas =
-          datosObtenidos.map((datosJson) => Pelicula.armar(datosJson)).toList();
-
-      return List<Pelicula>.from(listaPeliculas); //devuelve listdo de peliculas
-    } catch (e) {
-      print(e);
-      return e;
-    }
   }
 }

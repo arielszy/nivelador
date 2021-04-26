@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nivelador/loader.dart';
-import 'package:nivelador/moldes/Pelicula.dart';
+import 'package:nivelador/providers/PeliculaProvider.dart';
 import 'package:provider/provider.dart';
-import '../api.dart';
 import '../widgets/PeliculaWidget.dart';
-import 'package:nivelador/main.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +40,22 @@ class HomePage extends StatelessWidget {
               child: TabBarView(
                 //contenido de las pestañas. va segun el orden
                 children: [
-                  render('popular'),
-                  render('top_rated'),
+                  Consumer<PeliculaProvider>(
+                    builder: (context, value, child) => ListView.builder(
+                      itemBuilder: (context, index) => PeliculaWidget(
+                        pelicula: value.masPopulares[index],
+                      ),
+                      itemCount: value.masPopulares.length,
+                    ),
+                  ),
+                  Consumer<PeliculaProvider>(
+                    builder: (context, value, child) => ListView.builder(
+                      itemBuilder: (context, index) => PeliculaWidget(
+                        pelicula: value.masVistas[index],
+                      ),
+                      itemCount: value.masVistas.length,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -54,25 +64,29 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
- /*  otro(String tipo) {
-    Widget a;
+/* 
+  otro(String tipo) {
     return Consumer<Loader>(
       builder: (context, value, child) {
-        if (value.lista_popular.length != 0) {
-          a = ListView.builder(
-            itemBuilder: (context, index) => PeliculaWidget(
-              pelicula: value.lista_popular[index],
-            ),
-            itemCount: value.lista_popular.length,
-          );
-        } else {
-          a = Text('nd');
-        }
-        return a;
+        value.masPopulares != null
+            ? tipo == 'popular'
+                ? ListView.builder(
+                    itemBuilder: (context, index) => PeliculaWidget(
+                      pelicula: value.masPopulares[index],
+                    ),
+                    itemCount: value.masPopulares.length,
+                  )
+                : ListView.builder(
+                    itemBuilder: (context, index) => PeliculaWidget(
+                      pelicula: value.masVistas[index],
+                    ),
+                    itemCount: value.masVistas.length,
+                  )
+            : CircularProgressIndicator();
+        return this;
       },
     );
-  } */
+  }
 
   render(String tipo) {
     //genera y muestra el listado de peliculas
@@ -90,22 +104,25 @@ class HomePage extends StatelessWidget {
           : Text('error'),
     );
   }
-/* 
+
   Widget render2(String tipo) {
     Loader load;
 
     tipo == 'popular'
         ? ListView.builder(
             itemBuilder: (context, index) => PeliculaWidget(
-              pelicula: load.lista_popular[index],
+              pelicula: load.masPopulares[index],
             ),
-            itemCount: load.lista_popular.length,
+            itemCount: load.masPopulares.length,
           )
         : ListView.builder(
             itemBuilder: (context, index) => PeliculaWidget(
-              pelicula: load.lista_top_rated[index],
+              pelicula: load.masVistas[index],
             ),
-            itemCount: load.lista_top_rated.length,
+            itemCount: load.masVistas.length,
           );
-  } */
+    return this;
+  }
+
+ */
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nivelador/loader.dart';
-import 'package:nivelador/moldes/Pelicula.dart';
-import 'package:nivelador/providers/listado-provider.dart';
+import 'package:nivelador/providers/PeliculaProvider.dart';
+import 'package:nivelador/widgets/Loading.dart';
 import 'pantallas/HomePage.dart';
 import 'pantallas/Busqueda.dart';
 import 'package:provider/provider.dart';
@@ -10,20 +9,13 @@ void main() {
   runApp(NivelApp());
 }
 
-class NivelApp extends StatefulWidget {
-  @override
-  _NivelAppState createState() => _NivelAppState();
-}
-
-class _NivelAppState extends State<NivelApp> {
-  Widget next = Loading();
+class NivelApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (context) => Loader(),
-            key: Key('1'),
+          ChangeNotifierProvider<PeliculaProvider>(
+            create: (context) => PeliculaProvider(),
           ),
         ],
         child: MaterialApp(
@@ -33,37 +25,8 @@ class _NivelAppState extends State<NivelApp> {
             primarySwatch: Colors.grey,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: next,
+          home: Next(),
         ));
-  }
-
-  void openNext() async {
-    Loader datos = Loader();
-    await datos.loader();
-    setState(() {
-      next = Home();
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    openNext();
-  }
-}
-
-class Loading extends StatelessWidget {
-  const Loading({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          child: Text('Cargando app...'),
-        ),
-      ),
-    );
   }
 }
 
@@ -116,5 +79,28 @@ class _HomeState extends State<Home> {
     setState(() {
       indexPage = index;
     });
+  }
+}
+
+class Next extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Widget bak;
+    var data = Provider.of<PeliculaProvider>(context);
+    data.cargarDatosDesdeApi();
+    if (data.mapaGeneros != null ||
+        data.masPopulares != null ||
+        data.masVistas != null) {
+      if (data.mapaGeneros.isEmpty ||
+          data.masPopulares.isEmpty ||
+          data.masVistas.isEmpty) {
+        bak = Text('hubo un error al cargar los datos');
+      } else {
+        bak = Home();
+      }
+    } else {
+      bak = Loading();
+    }
+    return bak;
   }
 }

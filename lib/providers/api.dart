@@ -12,11 +12,24 @@ Future<List<Pelicula>> obtenerPeliculas(String tipo) async {
 
     return List<Pelicula>.from(listaPeliculas); //devuelve listdo de peliculas
   } catch (e) {
-    return e;
+    return [];
   }
 }
 
+Future<Map> obtenerGeneros() async {
+  try {
+    Response respuesta = await Dio().get(
+        "https://api.themoviedb.org/3/genre/movie/list?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es");
 
+    Map mapa = Map.fromIterable(respuesta.data['genres'],
+        key: (e) => e['id'],
+        value: (e) => e[
+            'name']); //crea un mapa a partir de una lista de mapas donde la key es el id y el value es el name
+    return mapa;
+  } catch (e) {
+    return {};
+  }
+}
 
 /*documentacion:
 https://www.themoviedb.org/documentation/api
@@ -29,12 +42,6 @@ https://www.themoviedb.org/documentation/api/discover
 creditos: https://api.themoviedb.org/3/movie/550/credits?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es
 
 
-
-a() async {
-  final listaGeneros = await obtenerGeneros();
-  final masVistas = await obtenerPeliculas('top_rated');
-  final masPopulares = await obtenerPeliculas('popular');
-}
 
 hacer lista de extensiones
 
