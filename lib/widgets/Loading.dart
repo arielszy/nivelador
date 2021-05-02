@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+//widget que se muestra al abrir la app, mientras carga los datos
 class Loading extends StatelessWidget {
-  const Loading({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

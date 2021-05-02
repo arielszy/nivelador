@@ -28,6 +28,7 @@ class PeliculaWidget extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
+            //le da un degradado al fondo
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
@@ -43,7 +44,7 @@ class PeliculaWidget extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: Row(
               children: [
-                ClipRRect(
+                ClipRRect(//recorta las esquinas de la imagen
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
                     pelicula.urlAvatar,
@@ -74,7 +75,7 @@ class PeliculaWidget extends StatelessWidget {
                       ),
                       Text(
                         pelicula.descripcion,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.ellipsis,//puntos suspensivos cuando se queda sin lugar
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 12,

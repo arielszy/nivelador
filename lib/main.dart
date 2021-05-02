@@ -89,17 +89,15 @@ class _HomeState extends State<Home> {
   }
 }
 
+//este widget carga los datos y muestra el resultado: si hay error muestra error y si no manda a la home
 class Next extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget bak;
     var data = Provider.of<PeliculaProvider>(context);
     data.cargarDatosDesdeApi();
-    if (
-        data.masPopulares != null ||
-        data.masVistas != null) {
-      if (          data.masPopulares.isEmpty ||
-          data.masVistas.isEmpty) {
+    if (data.masPopulares != null || data.masVistas != null) {
+      if (data.masPopulares.isEmpty || data.masVistas.isEmpty) {
         bak = Scaffold(
           body: Center(
             child: Text('hubo un error al cargar los datos'),

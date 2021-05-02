@@ -42,7 +42,11 @@ class HomePage extends StatelessWidget {
                 //contenido de las pestañas. va segun el orden
                 children: [
                   Consumer<PeliculaProvider>(
-                    builder: (context, value, child) => ListView.builder(
+                    builder: (context, value, child) => ListView.separated(
+                      //igual que builder pero con separacion entre items
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 25,
+                      ),
                       itemBuilder: (context, index) => PeliculaWidget(
                         pelicula: value.masPopulares[index],
                       ),
@@ -50,7 +54,10 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Consumer<PeliculaProvider>(
-                    builder: (context, value, child) => ListView.builder(
+                    builder: (context, value, child) => ListView.separated(
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 25,
+                      ),
                       itemBuilder: (context, index) => PeliculaWidget(
                         pelicula: value.masVistas[index],
                       ),
@@ -65,5 +72,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
 }
