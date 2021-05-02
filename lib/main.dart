@@ -53,7 +53,10 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(10),
           child: indexPage == 0
               ? HomePage()
-              : Busqueda()), //si indexPage es 0 muestra la home sino muestra la busqueda (? es if : es else)
+              : indexPage == 1
+                  ? Busqueda()
+                  : Text(
+                      'proximamente')), //si indexPage es 0 muestra la home sino muestra la busqueda (? es if : es else)
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
@@ -67,6 +70,10 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: "Buscar",
+              backgroundColor: Colors.grey[800]),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.info),
+              label: "acerca de",
               backgroundColor: Colors.grey[800]),
         ],
         onTap: (index) => _cambiarPagina(index),
@@ -88,13 +95,16 @@ class Next extends StatelessWidget {
     Widget bak;
     var data = Provider.of<PeliculaProvider>(context);
     data.cargarDatosDesdeApi();
-    if (data.mapaGeneros != null ||
+    if (
         data.masPopulares != null ||
         data.masVistas != null) {
-      if (data.mapaGeneros.isEmpty ||
-          data.masPopulares.isEmpty ||
+      if (          data.masPopulares.isEmpty ||
           data.masVistas.isEmpty) {
-        bak = Text('hubo un error al cargar los datos');
+        bak = Scaffold(
+          body: Center(
+            child: Text('hubo un error al cargar los datos'),
+          ),
+        );
       } else {
         bak = Home();
       }

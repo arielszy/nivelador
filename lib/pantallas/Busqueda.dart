@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
 
 class Busqueda extends StatelessWidget {
-  const Busqueda({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('buscar'),
+    return Column(
+      children: [
+        Text('Buscar una pelicula'),
+        TextFormField(
+          decoration: const InputDecoration(
+            icon: Icon(Icons.search),
+            labelText: 'ingrese el titulo de la pelicula que desea buscar',
+          ),
+          autofocus: true,
+          onEditingComplete: () => FocusScope.of(context)
+              .unfocus(), //quita el teclado de la pantalla
+        ),
+        GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Container(
+            child: Text('resultados:'),
+          ),
+        ),
+      ],
     );
   }
 }

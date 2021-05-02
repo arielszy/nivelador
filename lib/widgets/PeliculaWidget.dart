@@ -17,7 +17,8 @@ class PeliculaWidget extends StatelessWidget {
       ),
       onPressed: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PeliculaDetalle(pelicula:pelicula)),
+        MaterialPageRoute(
+            builder: (context) => PeliculaDetalle(pelicula: pelicula)),
       ),
       child: Card(
         elevation: 5, // le da una sombra al card
@@ -64,6 +65,10 @@ class PeliculaWidget extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(pelicula.generos),
                       SizedBox(
                         height: 10,
                       ),
