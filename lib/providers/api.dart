@@ -22,7 +22,7 @@ Future<List<Pelicula>> obtenerPeliculas(String tipo) async {
 Future<Map> obtenerGeneros() async {
   try {
     Response respuesta = await Dio().get(
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es");
+        "http://api.themoviedb.org/3/genre/movie/list?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es");
 
     Map mapa = Map.fromIterable(respuesta.data['genres'],
         key: (e) => e['id'],
@@ -31,6 +31,35 @@ Future<Map> obtenerGeneros() async {
     return mapa;
   } catch (e) {
     return {};
+  }
+}
+
+Future<List> obtenerPeliculasPorBusqueda(String textoABuscar) async {
+  List listaPeliculas;
+  if (textoABuscar != '') {
+    try {
+      Response respuesta = await Dio().get(
+          "https://api.themoviedb.org/3/search/movie?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&query=$textoABuscar&language=es");
+
+      Map generos = await obtenerGeneros();
+      List datosObtenidos = respuesta.data['results'];
+      String cantidadResultados = respuesta.data['total_results'].toString();
+      // List cantidadPaginas = [respuesta.data['total_pages']];
+
+      cantidadResultados != '0'
+          ? listaPeliculas = datosObtenidos
+              .map((datosJson) =>
+                  Pelicula.armar(datos: datosJson, generosId: generos))
+              .toList()
+          : listaPeliculas = [0];
+      return List.from(listaPeliculas); //devuelve listdo de peliculas
+    } catch (e) {
+      listaPeliculas = [e.toString()];
+      return listaPeliculas;
+    }
+  } else {
+    listaPeliculas = [];
+    return listaPeliculas;
   }
 }
 

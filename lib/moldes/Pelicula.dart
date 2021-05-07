@@ -26,20 +26,21 @@ class Pelicula {
 
   factory Pelicula.armar({Map datos, Map generosId}) {
     //recibe los datos traidos de la api y crea el objeto.
-    final titulo = datos['title'];
-    final urlPortada = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
-        datos[
-            'poster_path']; // url base donde estan las imagenes + el nombre del archivo
-    final urlAvatar = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' +
-        datos['backdrop_path'];
+    String base =
+        'https://www.themoviedb.org/t/p/w600_and_h900_bestv2'; // url base donde estan las imagenes
+    final titulo = datos['title'] ?? '';
+    final urlPortada =
+        datos['poster_path'] != null ? base + datos['poster_path'] : '';
+    final urlAvatar =
+        datos['backdrop_path'] != null ? base + datos['backdrop_path'] : '';
     final generos = generosPorId(datos['genre_ids'], generosId);
-    final descripcion = datos['overview'];
-    final fechaDeLanzamiento = datos['release_date'].toString();
-    final puntaje = datos['vote_average'].toString();
-    final id = datos['id'].toString();
-    final tituloOriginal = datos['original_title'];
-    final director = '';
-
+    final descripcion = datos['overview'].toString() ?? 'sin datos';
+    final fechaDeLanzamiento = datos['release_date'].toString() ?? 'sin datos';
+    final puntaje = datos['vote_average'].toString() ?? 'sin datos';
+    final id = datos['id'].toString() ?? 'sin datos';
+    final tituloOriginal = datos['original_title'] ?? 'sin datos';
+    final director = 'sin datos'; //mas adelante
+    // si datos en la key indicada es null ?? le asigna ''
     return Pelicula(
       titulo: titulo,
       urlPortada: urlPortada,
@@ -57,11 +58,16 @@ class Pelicula {
 
 String generosPorId(List ids, Map generosId) {
   var generos;
-  generos = ids
-      .map((id) => generosId[id])
-      .toList(); //crea la lista de generos reeplazando el id por el nombre
-  String result = generos
-      .map((val) => val.trim())
-      .join(', '); //convierte la lista de strings en un solo string
-  return result;
+  String result;
+  if (ids.isNotEmpty) {
+    generos = ids
+        .map((id) => generosId[id])
+        .toList(); //crea la lista de generos reeplazando el id por el nombre
+    result = generos
+        .map((val) => val.trim())
+        .join(', '); //convierte la lista de strings en un solo string
+    return result;
+  } else {
+    return 'sin datos';
+  }
 }

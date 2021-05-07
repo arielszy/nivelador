@@ -19,11 +19,12 @@ class PeliculaDetalle extends StatelessWidget {
             Column(
               children: [
                 Text('Portada'),
-                Image.network(
-                  pelicula.urlPortada,
-                  width: 250,
-                  // height: 350,
-                ),
+                pelicula.urlPortada == ''
+                    ? Image.asset('imagenes/nodisponible.jpg')
+                    : Image.network(
+                        pelicula.urlPortada,
+                        height: 250,
+                      ),
               ],
             ),
             Column(

@@ -44,12 +44,15 @@ class PeliculaWidget extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: Row(
               children: [
-                ClipRRect(//recorta las esquinas de la imagen
+                ClipRRect(
+                  //recorta las esquinas de la imagen
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    pelicula.urlAvatar,
-                    height: 200,
-                  ),
+                  child: pelicula.urlAvatar == ''
+                      ? Image.asset('imagenes/nodisponible.jpg')
+                      : Image.network(
+                          pelicula.urlAvatar,
+                          height: 200,
+                        ),
                 ),
                 SizedBox(
                   width: 15,
@@ -75,7 +78,8 @@ class PeliculaWidget extends StatelessWidget {
                       ),
                       Text(
                         pelicula.descripcion,
-                        overflow: TextOverflow.ellipsis,//puntos suspensivos cuando se queda sin lugar
+                        overflow: TextOverflow
+                            .ellipsis, //puntos suspensivos cuando se queda sin lugar
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 12,
