@@ -17,7 +17,8 @@ class PeliculaWidget extends StatelessWidget {
       ),
       onPressed: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => peliculaDetalle(pelicula)),
+        MaterialPageRoute(
+            builder: (context) => PeliculaDetalle(pelicula: pelicula)),
       ),
       child: Card(
         elevation: 5, // le da una sombra al card
@@ -27,6 +28,7 @@ class PeliculaWidget extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
+            //le da un degradado al fondo
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
@@ -43,11 +45,14 @@ class PeliculaWidget extends StatelessWidget {
             child: Row(
               children: [
                 ClipRRect(
+                  //recorta las esquinas de la imagen
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    pelicula.urlAvatar,
-                    height: 200,
-                  ),
+                  child: pelicula.urlAvatar == ''
+                      ? Image.asset('imagenes/nodisponible.jpg')
+                      : Image.network(
+                          pelicula.urlAvatar,
+                          height: 200,
+                        ),
                 ),
                 SizedBox(
                   width: 15,
@@ -67,9 +72,14 @@ class PeliculaWidget extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
+                      Text(pelicula.generos),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text(
                         pelicula.descripcion,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow
+                            .ellipsis, //puntos suspensivos cuando se queda sin lugar
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 12,

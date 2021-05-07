@@ -11,29 +11,40 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  connectivity: ^3.0.3
   cupertino_icons: ^1.0.0
-  dio: ^3.0.10
+  data_connection_checker: ^0.3.4
+  dio: ^4.0.0
+  flutter_launcher_icons: ^0.9.0
+  flutter_native_splash: ^1.1.8+4
   provider: ^5.0.0
+  url_launcher: ^6.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.7.4
+
+flutter_native_splash: # comandos para crear la splash screen: flutter clean / flutter pub get/ flutter pub run flutter_native_splash:create
+  color: "#ffffff"
+  image: assets/imagenes/icon.png
+  android: true
+  ios: true
 
 flutter:
-
   uses-material-design: true
+
+flutter_icons: # comando para actualizar el icono:flutter pub run flutter_launcher_icons:main
+  image_path: 'assets/imagenes/icon.png'
+  android: true
+  ios: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/imagenes/
-
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -53,7 +64,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-flutter_icons:
-  image_path: 'assets/imagenes/icon.png'
-  android: true
-  ios: true

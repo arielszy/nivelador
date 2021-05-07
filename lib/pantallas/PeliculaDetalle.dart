@@ -1,29 +1,30 @@
 //pagina que muestra el detalle de cada pelicula
-
 import 'package:flutter/material.dart';
 import 'package:nivelador/moldes/Pelicula.dart';
-import 'package:nivelador/providers/listado-provider.dart';
-import 'package:provider/provider.dart';
-import 'package:nivelador/main.dart';
 
-Widget peliculaDetalle(Pelicula pelicula) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text(pelicula.titulo),
-    ),
-    body: ListView(padding: EdgeInsets.all(10), children: [
-      Expanded(
-        child: Row(
+class PeliculaDetalle extends StatelessWidget {
+  const PeliculaDetalle({Key key, this.pelicula}) : super(key: key);
+  final Pelicula pelicula;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(pelicula.titulo),
+      ),
+      body: ListView(padding: EdgeInsets.all(10), children: [
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Column(
               children: [
                 Text('Portada'),
-                Image.network(
-                  pelicula.urlPortada,
-                  width: 250,
-                  height: 350,
-                ),
+                pelicula.urlPortada == ''
+                    ? Image.asset('imagenes/nodisponible.jpg')
+                    : Image.network(
+                        pelicula.urlPortada,
+                        height: 250,
+                      ),
               ],
             ),
             Column(
@@ -37,13 +38,11 @@ Widget peliculaDetalle(Pelicula pelicula) {
             )
           ],
         ),
-      ),
-      Expanded(
-        child: Text(
+        Text(
           'argumento: ' + pelicula.descripcion,
           overflow: TextOverflow.visible,
         ),
-      ),
-    ]),
-  );
+      ]),
+    );
+  }
 }

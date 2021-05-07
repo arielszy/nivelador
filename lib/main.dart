@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nivelador/providers/listado-provider.dart';
+import 'package:nivelador/pantallas/About.dart';
+import 'package:nivelador/providers/PeliculaProvider.dart';
+import 'package:nivelador/widgets/Loading.dart';
 import 'pantallas/HomePage.dart';
 import 'pantallas/Busqueda.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +15,9 @@ class NivelApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => ListadoProvider.init()),
+          ChangeNotifierProvider<PeliculaProvider>(
+            create: (context) => PeliculaProvider(),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -22,7 +26,7 @@ class NivelApp extends StatelessWidget {
             primarySwatch: Colors.grey,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: Home(),
+          home: Next(),
         ));
   }
 }
@@ -49,8 +53,10 @@ class _HomeState extends State<Home> {
       body: Padding(
           padding: const EdgeInsets.all(10),
           child: indexPage == 0
-              ? homePage()
-              : busqueda()), //si indexPage es 0 muestra la home sino muestra la busqueda (? es if : es else)
+              ? HomePage()
+              : indexPage == 1
+                  ? Busqueda()
+                  : About()), //si indexPage es 0 muestra la home si es 1 muestra la busqueda y si es 2 muestra contacto
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
@@ -65,6 +71,10 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.search),
               label: "Buscar",
               backgroundColor: Colors.grey[800]),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.info),
+              label: "acerca de",
+              backgroundColor: Colors.grey[800]),
         ],
         onTap: (index) => _cambiarPagina(index),
         currentIndex: indexPage,
@@ -76,5 +86,29 @@ class _HomeState extends State<Home> {
     setState(() {
       indexPage = index;
     });
+  }
+}
+
+//este widget carga los datos y muestra el resultado: si hay error muestra error y si no manda a la home
+class Next extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Widget bak;
+    var data = Provider.of<PeliculaProvider>(context);
+    data.cargarDatosDesdeApi();
+    if (data.masPopulares != null || data.masVistas != null) {
+      if (data.masPopulares.isEmpty || data.masVistas.isEmpty) {
+        bak = Scaffold(
+          body: Center(
+            child: Text('hubo un error al cargar los datos'),
+          ),
+        );
+      } else {
+        bak = Home();
+      }
+    } else {
+      bak = Loading();
+    }
+    return bak;
   }
 }
