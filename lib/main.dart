@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nivelador/pantallas/About.dart';
 import 'package:nivelador/providers/PeliculaProvider.dart';
 import 'package:nivelador/widgets/Loading.dart';
 import 'pantallas/HomePage.dart';
@@ -55,8 +56,7 @@ class _HomeState extends State<Home> {
               ? HomePage()
               : indexPage == 1
                   ? Busqueda()
-                  : Text(
-                      'proximamente')), //si indexPage es 0 muestra la home sino muestra la busqueda (? es if : es else)
+                  : About()), //si indexPage es 0 muestra la home si es 1 muestra la busqueda y si es 2 muestra contacto
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
