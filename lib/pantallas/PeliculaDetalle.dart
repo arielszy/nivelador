@@ -1,6 +1,7 @@
 //pagina que muestra el detalle de cada pelicula
 import 'package:flutter/material.dart';
 import 'package:nivelador/moldes/Pelicula.dart';
+import 'package:nivelador/providers/api.dart';
 
 class PeliculaDetalle extends StatelessWidget {
   const PeliculaDetalle({Key key, this.pelicula}) : super(key: key);
@@ -13,6 +14,14 @@ class PeliculaDetalle extends StatelessWidget {
         title: Text(pelicula.titulo),
       ),
       body: ListView(padding: EdgeInsets.all(10), children: [
+        pelicula.urlAvatar == ''
+            ? Image.asset('imagenes/nodisponible.jpg')
+            : Image.network(
+                pelicula.urlAvatar,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.fill,
+              ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -28,12 +37,11 @@ class PeliculaDetalle extends StatelessWidget {
               ],
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('año de lanzamiento: ' +
-                    pelicula.fechaDeLanzamiento.substring(0,
-                        4)), //corta el texto y manda solo los primeros 4 caracteres
-                Text('Puntaje: ' + pelicula.puntaje),
+                Text('año de lanzamiento: ${pelicula.fechaDeLanzamiento}'),
+                Text('Puntaje: ${pelicula.puntaje}'),
+                Text('generos: ${pelicula.generos}'),
               ],
             )
           ],
@@ -42,6 +50,14 @@ class PeliculaDetalle extends StatelessWidget {
           'argumento: ' + pelicula.descripcion,
           overflow: TextOverflow.visible,
         ),
+        FutureBuilder(
+          future: obtenerActores(pelicula.id),
+          builder: (context, snapshot) => snapshot.hasData
+              ? snapshot.hasError
+                  ? Text('error')
+                  : Text('Elenco: ${snapshot.data}')
+              : LinearProgressIndicator(),
+        )
       ]),
     );
   }

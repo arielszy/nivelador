@@ -34,6 +34,23 @@ Future<Map> obtenerGeneros() async {
   }
 }
 
+Future obtenerActores(String id) async {
+  try {
+    Response respuesta = await Dio().get(
+        "https://api.themoviedb.org/3/movie/$id/credits?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es");
+
+    var cast = respuesta.data['cast']
+        .map((datosJson) => datosJson['original_name'])
+        .toList();
+
+    var result = cast.map((val) => val.trim()).join(', ');
+
+    return result;
+  } catch (e) {
+    return {};
+  }
+}
+
 Future<List> obtenerPeliculasPorBusqueda(String textoABuscar) async {
   List listaPeliculas;
   if (textoABuscar != '') {
@@ -54,7 +71,8 @@ Future<List> obtenerPeliculasPorBusqueda(String textoABuscar) async {
           : listaPeliculas = [0];
       return List.from(listaPeliculas); //devuelve listdo de peliculas
     } catch (e) {
-      listaPeliculas = [e.toString()];
+      print(e);
+      listaPeliculas = [0];
       return listaPeliculas;
     }
   } else {
@@ -70,7 +88,7 @@ https://developers.themoviedb.org/3/movies/get-movie-details
 https://developers.themoviedb.org/3/movies/get-top-rated-movies
 https://www.themoviedb.org/talk/51ef18b5760ee3182d125573
 https://www.themoviedb.org/documentation/api/discover
-
+imagenes: https://www.themoviedb.org/t/p/w600_and_h900_bestv2
 creditos: https://api.themoviedb.org/3/movie/550/credits?api_key=0e685fd77fb3d76874a3ac26e0db8a4b&language=es
 
 

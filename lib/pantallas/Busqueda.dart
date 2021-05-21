@@ -4,12 +4,7 @@ import 'package:nivelador/providers/api.dart';
 import 'package:nivelador/widgets/PeliculaWidget.dart';
 import 'package:provider/provider.dart';
 
-class Busqueda extends StatefulWidget {
-  @override
-  _BusquedaState createState() => _BusquedaState();
-}
-
-class _BusquedaState extends State<Busqueda> {
+class Busqueda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pro = Provider.of<PeliculaProvider>(context, listen: false);
@@ -21,10 +16,8 @@ class _BusquedaState extends State<Busqueda> {
           TextField(
               onChanged: (String value) async {
                 print(value);
-                //await obtenerPeliculasPorBusqueda(value);
                 pro.resultadoBusqueda =
                     await obtenerPeliculasPorBusqueda(value);
-                //setState(() {});
               },
               decoration: const InputDecoration(
                 icon: Icon(Icons.search),
