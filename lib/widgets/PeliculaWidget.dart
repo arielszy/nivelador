@@ -47,10 +47,10 @@ class PeliculaWidget extends StatelessWidget {
                 ClipRRect(
                   //recorta las esquinas de la imagen
                   borderRadius: BorderRadius.circular(20),
-                  child: pelicula.urlAvatar == ''
+                  child: pelicula.urlPortada == ''
                       ? Image.asset('imagenes/nodisponible.jpg')
                       : Image.network(
-                          pelicula.urlAvatar,
+                          pelicula.urlPortada,
                           height: 200,
                         ),
                 ),
