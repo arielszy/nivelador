@@ -30,15 +30,15 @@ flutter_native_splash: # comandos para crear la splash screen: flutter clean / f
   android: true
   ios: true
 
-flutter:
-  uses-material-design: true
-
 flutter_icons: # comando para actualizar el icono:flutter pub run flutter_launcher_icons:main
   image_path: 'assets/imagenes/icon.png'
   android: true
   ios: true
 
-  # To add assets to your application, add an assets section, like this:
+flutter:
+  uses-material-design: true
+
+   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
   # An image asset can refer to one or more resolution-specific "variants", see

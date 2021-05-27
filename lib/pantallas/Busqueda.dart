@@ -15,7 +15,6 @@ class Busqueda extends StatelessWidget {
           Text('Buscar una pelicula'),
           TextField(
               onChanged: (String value) async {
-                print(value);
                 pro.resultadoBusqueda =
                     await obtenerPeliculasPorBusqueda(value);
               },
