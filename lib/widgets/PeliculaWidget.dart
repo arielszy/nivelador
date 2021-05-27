@@ -51,7 +51,7 @@ class PeliculaWidget extends StatelessWidget {
                       ? Image.asset('imagenes/nodisponible.jpg')
                       : Image.network(
                           pelicula.urlPortada,
-                          height: 200,
+                          height: 140,
                         ),
                 ),
                 SizedBox(
@@ -65,7 +65,7 @@ class PeliculaWidget extends StatelessWidget {
                       Text(
                         pelicula.titulo,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -87,7 +87,7 @@ class PeliculaWidget extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       Text(
                         'Mas detalles...',
