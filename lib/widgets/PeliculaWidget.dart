@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nivelador/moldes/Pelicula.dart';
 import 'package:nivelador/pantallas/PeliculaDetalle.dart';
+import 'package:nivelador/providers/PeliculaProvider.dart';
+import 'package:provider/provider.dart';
 
 class PeliculaWidget extends StatelessWidget {
   PeliculaWidget({this.pelicula});
@@ -9,6 +11,7 @@ class PeliculaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<PeliculaProvider>(context);
     return ElevatedButton(
       //boton con el card dentro, para pasar al detalle al tocar.
       style: ElevatedButton.styleFrom(
@@ -96,6 +99,11 @@ class PeliculaWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+                IconButton(
+                    onPressed: () => provider.toggleFav(pelicula),
+                    icon: pelicula.isFav
+                        ? Icon(Icons.favorite)
+                        : Icon(Icons.favorite_outline)) //favorito
               ],
             ),
           ),

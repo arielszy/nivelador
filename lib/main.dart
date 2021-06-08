@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nivelador/pantallas/About.dart';
-import 'package:nivelador/providers/PeliculaProvider.dart';
-import 'package:nivelador/widgets/Loading.dart';
+import 'pantallas/About.dart';
+import 'providers/PeliculaProvider.dart';
+import 'widgets/Loading.dart';
+import 'pantallas/Favoritos.dart';
 import 'pantallas/HomePage.dart';
 import 'pantallas/Busqueda.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,9 @@ class _HomeState extends State<Home> {
               ? HomePage()
               : indexPage == 1
                   ? Busqueda()
-                  : About()), //si indexPage es 0 muestra la home si es 1 muestra la busqueda y si es 2 muestra contacto
+                  : indexPage == 2
+                      ? Favoritos()
+                      : About()), //si indexPage es 0 muestra la home si es 1 muestra la busqueda y si es 2 muestra favoritos y si es 3 muestr contacto
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
@@ -72,8 +75,12 @@ class _HomeState extends State<Home> {
               label: "Buscar",
               backgroundColor: Colors.grey[800]),
           BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_rounded),
+              label: "Favoritos",
+              backgroundColor: Colors.grey[800]),
+          BottomNavigationBarItem(
               icon: Icon(Icons.info),
-              label: "acerca de",
+              label: "Acerca de",
               backgroundColor: Colors.grey[800]),
         ],
         onTap: (index) => _cambiarPagina(index),
@@ -93,22 +100,17 @@ class _HomeState extends State<Home> {
 class Next extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget bak;
-    var data = Provider.of<PeliculaProvider>(context);
-    data.cargarDatosDesdeApi();
-    if (data.masPopulares != null || data.masVistas != null) {
-      if (data.masPopulares.isEmpty || data.masVistas.isEmpty) {
-        bak = Scaffold(
-          body: Center(
-            child: Text('hubo un error al cargar los datos'),
-          ),
-        );
-      } else {
-        bak = Home();
-      }
-    } else {
-      bak = Loading();
-    }
-    return bak;
+    Provider.of<PeliculaProvider>(context, listen: false).cargarDatosDesdeApi();
+    return Consumer<PeliculaProvider>(
+        builder: (context, value, child) =>
+            value.masPopulares != null || value.masVistas != null
+                ? value.masPopulares.isEmpty || value.masVistas.isEmpty
+                    ? Loading()
+                    : Home()
+                : Scaffold(
+                    body: Center(
+                      child: Text('hubo un error al cargar los datos'),
+                    ),
+                  ));
   }
 }

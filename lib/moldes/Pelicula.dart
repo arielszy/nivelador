@@ -10,6 +10,7 @@ class Pelicula {
     this.fechaDeLanzamiento,
     this.puntaje,
     this.id,
+    this.isFav,
   });
 
   String titulo;
@@ -21,6 +22,7 @@ class Pelicula {
   String fechaDeLanzamiento;
   String puntaje;
   String id;
+  bool isFav;
 
   factory Pelicula.armar({Map datos, Map generosId}) {
     //recibe los datos traidos de la api y crea el objeto.
@@ -41,6 +43,7 @@ class Pelicula {
     final puntaje = datos['vote_average'].toString() ?? 'sin datos';
     final id = datos['id'].toString() ?? 'sin datos';
     final tituloOriginal = datos['original_title'] ?? 'sin datos';
+    bool isFav = false;
 
     // si datos en la key indicada es null ?? le asigna ''
 
@@ -54,6 +57,7 @@ class Pelicula {
       puntaje: puntaje,
       id: id,
       tituloOriginal: tituloOriginal,
+      isFav: isFav,
     );
   }
 }

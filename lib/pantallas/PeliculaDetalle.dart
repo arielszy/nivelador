@@ -1,7 +1,9 @@
 //pagina que muestra el detalle de cada pelicula
 import 'package:flutter/material.dart';
 import 'package:nivelador/moldes/Pelicula.dart';
+import 'package:nivelador/providers/PeliculaProvider.dart';
 import 'package:nivelador/providers/api.dart';
+import 'package:provider/provider.dart';
 
 class PeliculaDetalle extends StatelessWidget {
   const PeliculaDetalle({this.pelicula});
@@ -17,8 +19,16 @@ class PeliculaDetalle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<PeliculaProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () => provider.toggleFav(pelicula),
+              icon: pelicula.isFav
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_outline)) //favorito
+        ],
         centerTitle: true,
         title: Text(
           pelicula.titulo,
@@ -56,10 +66,40 @@ class PeliculaDetalle extends StatelessWidget {
                         height: 300,
                         width: 200,
                       )
-                    : Image.network(
-                        pelicula.urlPortada,
+                    : Container(
                         height: 300,
                         width: 200,
+                        child: InkWell(
+                          child: Image.network(
+                            pelicula.urlPortada,
+                            height: 300,
+                            width: 200,
+                          ),
+                          onTap: () => showDialog(
+                            barrierColor: Colors.black87,
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              elevation: 5.0,
+                              contentPadding: EdgeInsets.zero,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              backgroundColor: Colors.black,
+                              actions: [
+                                IconButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    icon:
+                                        Icon(Icons.clear, color: Colors.white))
+                              ],
+                              content: Container(
+                                child: InteractiveViewer(
+                                  child: Image.network(
+                                    pelicula.urlPortada,
+                                    alignment: Alignment.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -144,6 +184,4 @@ class PeliculaDetalle extends StatelessWidget {
       ),
     );
   }
-
-  
 }
