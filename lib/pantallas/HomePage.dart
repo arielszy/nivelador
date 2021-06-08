@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
           Expanded(
             //se agrega para que se renderize como debe
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.symmetric(vertical: 10),
               child: TabBarView(
                 //contenido de las pestañas. va segun el orden
                 children: [

@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 class Busqueda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var pro = Provider.of<PeliculaProvider>(context, listen: false);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Column(
@@ -15,7 +14,8 @@ class Busqueda extends StatelessWidget {
           Text('Buscar una pelicula'),
           TextField(
               onChanged: (String value) async {
-                pro.resultadoBusqueda =
+                Provider.of<PeliculaProvider>(context, listen: false)
+                        .resultadoBusqueda =
                     await obtenerPeliculasPorBusqueda(value);
               },
               decoration: const InputDecoration(
